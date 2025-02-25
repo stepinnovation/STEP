@@ -70,6 +70,16 @@
 
     <!-- /intro-social -->
   </section>
+<script>
+    document.getElementById('save-btn').onclick = function () {
+      var dropdown = document.getElementById('contacts');
+      if (dropdown.style.display === "none") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    };
+  </script>
   <script>
     function save_contacts(city) {
       // Get the contact information from the website
@@ -91,7 +101,9 @@
         "BEGIN:VCARD\nVERSION:3.0\nFN:" +
         contact.name +
         "\nTEL;TYPE=work,voice:" +
-        contact.phones[0]
+        contact.phones[0] +
+        "\nTEL;TYPE=work,voice:" +
+        contact.phones[1]
 
       var blob = new Blob([vcard], {
         type: "text/vcard"
@@ -106,7 +118,6 @@
       newLink.click();
 
     }
-
   </script>
 </body>
 
