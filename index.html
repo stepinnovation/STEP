@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Traversa</title>
+  <meta name="description" content="traversa" />
+  <meta name="author" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="icon" type="image/png" href="images/IMG_0518.PNG" />
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    .contact-image {
+      width: 350px;
+      height: auto;
+    }
+
+    .center {
+      /* display: none; */
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body id="top">
+  <!-- intro section
+   ================================================== -->
+  <section id="intro">
+    <!-- <div class="intro-overlay"></div> -->
+
+    <div class="intro-content">
+      <div class="row">
+        <div class="col-twelve">
+          <img src="./images/IMG_9752-Photoroom.png" alt="" class="contact-image">
+
+          <p class="intro-position">
+            <span style="color: #2486bd;">Robotics Training Center Empowering young minds with STEM, coding &
+              robotics.</span>
+          </p>
+          <button id="save-btn" class="button stroke smoothscroll" title="">Save Contact</button>
+          <div class="center" id="contacts" style="display: none;">
+            <select name="contacts" class="dropdown button stroke smoothscroll" onchange="save_contacts(this.value)">
+              <option value="" disabled selected>Select a location</option>
+              <option onclick="save_contacts(this.value)" value="Tripoli">Tripoli</option>
+              <option onclick="save_contacts(this.value)" value="Beqaa">Beqaa</option>
+            </select>
+          </div>
+          <ul class="intro-social">
+            <li>
+              <a href="https://www.instagram.com/stepinnovation/"><i class="fa-brands fa-instagram"
+                  style="color: #2486bd;"></i></a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/profile.php?id=61564130700799"><i class="fa-brands fa-facebook"
+                  style="color: #2486bd;"></i></a>
+            </li>
+            <li>
+              <a href="https://www.tiktok.com/@step.inno"><i class="fa-brands fa-tiktok"
+                  style="color: #2486bd;"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /intro-content -->
+
+
+    <!-- /intro-social -->
+  </section>
+  <script>
+    document.getElementById('save-btn').onclick = function () {
+      var dropdown = document.getElementById('contacts');
+      if (dropdown.style.display === "none") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    };
+  </script>
+  <script>
+    function save_contacts(city) {
+      // Get the contact information from the website
+      if (city == "Tripoli") {
+        var contact = {
+          name: "STEP",
+          phones: ["+96170494039"],
+        }
+      }
+      if (city == "Beqaa") {
+        var contact = {
+          name: "STEP",
+          phones: ["+96181563192"],
+        }
+      }
+
+      // create a vcard file
+      var vcard =
+        "BEGIN:VCARD\nVERSION:3.0\nFN:" +
+        contact.name +
+        "\nTEL;TYPE=work,voice:" +
+        contact.phones[0] +
+        "\nTEL;TYPE=work,voice:" +
+        contact.phones[1] +
+        "\nEMAIL:" +
+        contact.email +
+        "\nPHOTO;MEDIATYPE=image/jpeg;ENCODING=b;TYPE=JPEG:"
+
+      var blob = new Blob([vcard], {
+        type: "text/vcard"
+      });
+      var url = URL.createObjectURL(blob);
+
+      const newLink = document.createElement("a");
+      newLink.download = contact.name + ".vcf";
+      newLink.textContent = contact.name;
+      newLink.href = url;
+
+      newLink.click();
+
+    }
+  </script>
+</body>
+
+</html>
