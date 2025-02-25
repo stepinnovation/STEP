@@ -82,45 +82,42 @@
   </script>
   <script>
     function save_contacts(city) {
-      // Get the contact information from the website
-      if (city == "Tripoli") {
-        var contact = {
-          name: "STEP",
-          phones: ["+96170494039"],
-        }
-      }
-      if (city == "Beqaa") {
-        var contact = {
-          name: "STEP",
-          phones: ["+96181563192"],
-        }
-      }
+  // Get the contact information from the website
+  let contact;
+  if (city === "Tripoli") {
+    contact = {
+      name: "STEP",
+      phones: ["+96170494039"],
+    };
+  } else if (city === "Beqaa") {
+    contact = {
+      name: "STEP",
+      phones: ["+96181563192"],
+    };
+  } else {
+    alert("City not found");
+    return;
+  }
 
-      // create a vcard file
-      var vcard =
-        "BEGIN:VCARD\nVERSION:3.0\nFN:" +
-        contact.name +
-        "\nTEL;TYPE=work,voice:" +
-        contact.phones[0] +
-        "\nTEL;TYPE=work,voice:" +
-        contact.phones[1] +
-        "\nEMAIL:" +
-        contact.email +
-        "\nPHOTO;MEDIATYPE=image/jpeg;ENCODING=b;TYPE=JPEG:"
+  // Create a vCard file
+  let vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${contact.name}\nTEL;TYPE=work,voice:${contact.phones[0]}\nEND:VCARD`;
 
-      var blob = new Blob([vcard], {
-        type: "text/vcard"
-      });
-      var url = URL.createObjectURL(blob);
+  let blob = new Blob([vcard], { type: "text/vcard" });
+  let url = URL.createObjectURL(blob);
 
-      const newLink = document.createElement("a");
-      newLink.download = contact.name + ".vcf";
-      newLink.textContent = contact.name;
-      newLink.href = url;
+  if (navigator.canShare && navigator.canShare({ files: [blob] })) {
+    const file = new File([blob], `${contact.name}.vcf`, { type: "text/vcard" });
+    navigator.share({ files: [file], title: "Save Contact", text: "Add this contact to your phone." })
+      .catch(error => console.error("Sharing failed", error));
+  } else {
+    // Fallback: Download vCard file
+    const newLink = document.createElement("a");
+    newLink.download = `${contact.name}.vcf`;
+    newLink.href = url;
+    newLink.click();
+  }
+}
 
-      newLink.click();
-
-    }
   </script>
 </body>
 
