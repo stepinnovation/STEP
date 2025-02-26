@@ -101,9 +101,7 @@
         "BEGIN:VCARD\nVERSION:3.0\nFN:" +
         contact.name +
         "\nTEL;TYPE=work,voice:" +
-        contact.phones[0] +
-        "\nTEL;TYPE=work,voice:" +
-        contact.phones[1] + 
+        contact.phones[0] + 
           "\nEND:VCARD";
       var blob = new Blob([vcard], {
         type: "text/vcard"
