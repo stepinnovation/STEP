@@ -103,8 +103,8 @@
         "\nTEL;TYPE=work,voice:" +
         contact.phones[0] +
         "\nTEL;TYPE=work,voice:" +
-        contact.phones[1]
-
+        contact.phones[1] + 
+          "\nEND:VCARD";
       var blob = new Blob([vcard], {
         type: "text/vcard"
       });
